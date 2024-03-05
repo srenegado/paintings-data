@@ -5,6 +5,7 @@
 # Scott Renegado
 
 from sqlalchemy import text
+import pandas as pd
 
 
 def load_script(script_filename):
@@ -22,3 +23,12 @@ def execute_script(script_filename, con):
     """
     create_script = load_script(script_filename)
     con.execute(create_script)
+
+
+def read_local_sql(script_filename, con):
+    """
+    Read a local SQL script into a dataframe.
+    See pandas.read_sql.
+    """
+    script = load_script(script_filename)
+    return pd.read_sql(script, con=con)
