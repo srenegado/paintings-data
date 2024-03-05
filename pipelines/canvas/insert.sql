@@ -1,0 +1,1 @@
+INSERT INTO canvas VALUES (0, 'None', 'None', 'Missing Canvas Information')
