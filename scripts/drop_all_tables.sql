@@ -6,6 +6,9 @@ drop table if exists artist;
 drop table if exists museum_hours;
 drop table if exists museum;
 
+drop table if exists fact_artwork;
+drop table if exists fact_museum_hours;
+
 drop table if exists dim_artist;
 drop table if exists dim_canvas;
 drop table if exists dim_museum;
