@@ -1,0 +1,1 @@
+CLUSTER dim_concept USING dim_concept_pkey;

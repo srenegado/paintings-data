@@ -1,0 +1,1 @@
+CLUSTER dim_canvas USING dim_canvas_pkey;
