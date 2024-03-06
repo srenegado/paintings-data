@@ -22,6 +22,9 @@ def dim_artist_driver(engine):
     # Read table into dataframe
     df = read_local_sql("pipelines/dim_artist/load.sql", con=conn)
 
+    # Add surrogate key
+    df['dim_artist_skey'] = df.index + 1
+
     # Load dataframe into table
     df.to_sql('dim_artist', con=conn, if_exists='append', index=False)
 

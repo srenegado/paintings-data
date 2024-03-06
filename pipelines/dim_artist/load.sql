@@ -1,5 +1,5 @@
 SELECT
-    id,
+    id as artist_id,
     full_name,
     nationality,
     style,
