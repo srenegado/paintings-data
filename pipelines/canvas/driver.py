@@ -31,13 +31,15 @@ def canvas_driver(engine):
         .rename(columns={'size_id': 'id'})
     )
 
-    # Insert missing canvas data by infering from products
+    # Insert missing canvas data by infering from source product_size 
     product_df = pd.read_csv(f'data/product_size.csv')
     size_id_col = product_df['size_id']
 
+    # Read size_ids that are decimals
     single_dim_ids = size_id_col[size_id_col.str.match(r'\d\d\.\d+')].reset_index(drop=True)
     double_dim_ids = size_id_col[size_id_col.str.match(r'\d\d\d\d\.\d+')].reset_index(drop=True)
 
+    # Decimal ids are converted to integers by multiplying them by 1000
     inserts_df1 = pd.DataFrame()
     inserts_df1['id'] = (
         (single_dim_ids
