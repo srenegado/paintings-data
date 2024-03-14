@@ -13,10 +13,11 @@ from pipelines.resources.connection import get_db_connection
 
 class TestProduct(unittest.TestCase):
     
-    def setUp(self):
-        self.engine = get_db_engine()
-        self.con = get_db_connection(engine=self.engine)
-        self.df = pd.read_sql('SELECT * FROM product', con=self.con)
+    @classmethod
+    def setUpClass(cls):
+        cls.engine = get_db_engine()
+        cls.con = get_db_connection(engine=cls.engine)
+        cls.df = pd.read_sql('SELECT * FROM product', con=cls.con)
 
     def test_schema(self):
         print("\nschema check")
@@ -27,7 +28,7 @@ class TestProduct(unittest.TestCase):
     def test_primary_key_not_null(self):
         print('\nnull primary key count = 0')
         null_pks = self.df[['work_id', 'canvas_id']].isnull()
-        null_pks_flattened = null_pks['work_id'] & null_pks['canvas_id']
+        null_pks_flattened = null_pks['work_id'] | null_pks['canvas_id']
         null_pk_counts = self.df[null_pks_flattened].shape[0]
         self.assertEqual(null_pk_counts, 0)
         
@@ -60,10 +61,11 @@ class TestProduct(unittest.TestCase):
         print("\nmin(regular_price) > 0")
         min_regular_price = min(self.df['regular_price'])
         self.assertGreater(min_regular_price, 0)
-        
-    def tearDown(self):
-        if self.con:
-            self.con.close()
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls.con:
+            cls.con.close()
 
         
 if __name__ == '__main__':
