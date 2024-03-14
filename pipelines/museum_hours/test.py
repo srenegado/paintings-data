@@ -6,6 +6,7 @@
 
 import unittest
 import pandas as pd
+from datetime import datetime
 
 from pipelines.resources.connection import get_db_engine
 from pipelines.resources.connection import get_db_connection
@@ -47,7 +48,16 @@ class TestMuseumHours(unittest.TestCase):
         null_closing_hours_counts = self.df[self.df['close'].isnull()].shape[0]
         self.assertEqual(null_opening_hours_counts, 0)
         self.assertEqual(null_closing_hours_counts, 0)
-        
+
+    def test_hours_in_range(self):
+        print("\nhours are in correct format")
+        opening_hours = self.df['open']
+        closing_hours = self.df['close']
+        min_time = datetime.strptime('00:00:00', '%H:%M:%S').time()
+        max_time = datetime.strptime('23:59:59', '%H:%M:%S').time()
+        self.assertTrue(opening_hours.between(min_time, max_time).all())
+        self.assertTrue(closing_hours.between(min_time, max_time).all())
+
     def tearDown(self):
         if self.con:
             self.con.close()
