@@ -14,10 +14,11 @@ from pipelines.resources.connection import get_db_connection
 
 class TestMuseumHours(unittest.TestCase):
     
-    def setUp(self):
-        self.engine = get_db_engine()
-        self.con = get_db_connection(engine=self.engine)
-        self.df = pd.read_sql('SELECT * FROM museum_hours', con=self.con)
+    @classmethod
+    def setUpClass(cls):
+        cls.engine = get_db_engine()
+        cls.con = get_db_connection(engine=cls.engine)
+        cls.df = pd.read_sql('SELECT * FROM museum_hours', con=cls.con)
 
     def test_schema(self):
         print("\nschema check")
@@ -58,9 +59,10 @@ class TestMuseumHours(unittest.TestCase):
         self.assertTrue(opening_hours.between(min_time, max_time).all())
         self.assertTrue(closing_hours.between(min_time, max_time).all())
 
-    def tearDown(self):
-        if self.con:
-            self.con.close()
+    @classmethod
+    def tearDownClass(cls):
+        if cls.con:
+            cls.con.close()
 
         
 if __name__ == '__main__':

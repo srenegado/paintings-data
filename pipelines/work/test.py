@@ -13,10 +13,11 @@ from pipelines.resources.connection import get_db_connection
 
 class TestWork(unittest.TestCase):
     
-    def setUp(self):
-        self.engine = get_db_engine()
-        self.con = get_db_connection(engine=self.engine)
-        self.df = pd.read_sql('SELECT * FROM work', con=self.con)
+    @classmethod
+    def setUpClass(cls):
+        cls.engine = get_db_engine()
+        cls.con = get_db_connection(engine=cls.engine)
+        cls.df = pd.read_sql('SELECT * FROM work', con=cls.con)
 
     def test_schema(self):
         print("\nschema check")
@@ -50,9 +51,10 @@ class TestWork(unittest.TestCase):
         invalid_museum_id_counts = self.df[~self.df['museum_id'].isin(museum_ids['id'])].shape[0]
         self.assertEqual(invalid_museum_id_counts, 0)
         
-    def tearDown(self):
-        if self.con:
-            self.con.close()
+    @classmethod
+    def tearDownClass(cls):
+        if cls.con:
+            cls.con.close()
 
         
 if __name__ == '__main__':
