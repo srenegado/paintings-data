@@ -5,3 +5,4 @@ SELECT
     museum_hours.close as closing_hours
 FROM museum_hours
 JOIN dim_museum on museum_hours.museum_id = dim_museum.museum_id
+ORDER BY 1,2

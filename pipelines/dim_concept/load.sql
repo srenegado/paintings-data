@@ -3,6 +3,8 @@ SELECT
     work.id as work_id,
     work.name as name,
     work.style as style,
-    work_subject.subject as subject
+    CASE WHEN work_subject.subject IS NULL THEN 'Not Provided' 
+         ELSE work_subject.subject 
+    END as subject
 FROM work
-JOIN work_subject ON work.id = work_subject.work_id
+LEFT JOIN work_subject ON work.id = work_subject.work_id
