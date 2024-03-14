@@ -28,7 +28,7 @@ class TestMuseumHours(unittest.TestCase):
     def test_primary_key_not_null(self):
         print('\nnull primary key count = 0')
         null_pks = self.df[['museum_id', 'day']].isnull()
-        null_pks_flattened = null_pks['museum_id'] & null_pks['day']
+        null_pks_flattened = null_pks['museum_id'] | null_pks['day']
         null_pk_counts = self.df[null_pks_flattened].shape[0]
         self.assertEqual(null_pk_counts, 0)
         
