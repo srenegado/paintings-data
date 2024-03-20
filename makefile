@@ -2,7 +2,7 @@ init:
 	pip install -r requirements.txt
 
 staging:
-	python staging.py
+	python init_staging.py
 
 presentation:
 	python presentation.py

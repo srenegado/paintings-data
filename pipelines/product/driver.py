@@ -7,25 +7,14 @@
 import pandas as pd
 import numpy as np
 
+from pipelines.staging_driver import staging_driver
 from pipelines.resources.connection import get_db_engine
-from pipelines.resources.connection import get_db_connection
-from pipelines.resources.sqlhandler import execute_script
 
 
-def product_driver(engine):
-
-    # Connect to database
-    print("Establishing a database connection...")
-    conn = get_db_connection(engine)
-
-    # Create the product table
-    execute_script("pipelines/product/drop.sql", con=conn)
-    execute_script("pipelines/product/create.sql", con=conn)
-
-    # Read csv data into dataframe
-    df = pd.read_csv(f'data/product_size.csv')
-
-    # Transformations
+def product_transform(df: pd.DataFrame):
+    """
+    Transformations for product table.
+    """
     df = (
         df.drop_duplicates()
         .rename(columns={'size_id': 'canvas_id'})
@@ -48,18 +37,15 @@ def product_driver(engine):
         .astype('float64')
         .astype('int64')
     )
+    return df
 
-    # Load dataframe into table
-    df.to_sql('product', con=conn, if_exists='append', index=False)
 
-    # Commit transanctions to DB
-    conn.commit()
-
-    if conn:
-        print("Closing database connection...")
-        conn.close()
+def product_driver(engine):
+    """
+    Main driver for product table.
+    """
+    staging_driver(engine, sourcename='product_size', tablename='product', transform=product_transform, insert=False)
 
 
 if __name__ == '__main__':
-    engine = get_db_engine()
-    product_driver(engine)
+    product_driver(get_db_engine())

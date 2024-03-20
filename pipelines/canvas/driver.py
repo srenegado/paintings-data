@@ -7,25 +7,13 @@
 import pandas as pd
 
 from pipelines.resources.connection import get_db_engine
-from pipelines.resources.connection import get_db_connection
-from pipelines.resources.sqlhandler import execute_script
+from pipelines.staging_driver import staging_driver
 
 
-def canvas_driver(engine):
-
-    # Connect to database
-    print("Establishing a database connection...")
-    conn = get_db_connection(engine)
-
-    # Create the canvas table
-    execute_script("pipelines/canvas/drop.sql", con=conn)
-    execute_script("pipelines/canvas/create.sql", con=conn)
-    execute_script("pipelines/canvas/insert.sql", con=conn)
-
-    # Read csv data into dataframe
-    df = pd.read_csv(f'data/canvas_size.csv')
-
-    # Transformations
+def canvas_transform(df: pd.DataFrame):
+    """
+    Transformations for canvas table.
+    """
     df = (
         df.drop_duplicates()
         .rename(columns={'size_id': 'id'})
@@ -63,18 +51,15 @@ def canvas_driver(engine):
     inserts_df2 = inserts_df2.drop_duplicates()
 
     df = pd.concat([df, inserts_df1, inserts_df2])
+    return df
 
-    # Load dataframe into table
-    df.to_sql('canvas', con=conn, if_exists='append', index=False)
-    
-    # Commit transanctions to DB
-    conn.commit()
 
-    if conn:
-        print("Closing database connection...")
-        conn.close()
+def canvas_driver(engine):
+    """
+    Main driver for artist table.
+    """
+    staging_driver(engine, sourcename='canvas_size', tablename='canvas', transform=canvas_transform, insert=True)
 
 
 if __name__ == '__main__':
-    engine = get_db_engine()
-    canvas_driver(engine)
+    canvas_driver(get_db_engine())

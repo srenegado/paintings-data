@@ -6,43 +6,28 @@
 
 import pandas as pd
 
+from pipelines.staging_driver import staging_driver
 from pipelines.resources.connection import get_db_engine
-from pipelines.resources.connection import get_db_connection
-from pipelines.resources.sqlhandler import execute_script
 
 
-def museum_driver(engine):
-
-    # Connect to database
-    print("Establishing a database connection...")
-    conn = get_db_connection(engine)
-
-    # Create the museum table
-    execute_script("pipelines/museum/drop.sql", con=conn)
-    execute_script("pipelines/museum/create.sql", con=conn)
-    execute_script("pipelines/museum/insert.sql", con=conn)
-
-    # Read csv data into dataframe
-    df = pd.read_csv(f'data/museum.csv')
-
-    # Transformations
+def museum_transform(df: pd.DataFrame):
+    """
+    Transformations for artist table.
+    """
     df = (
         df.drop(columns=['url'])
         .rename(columns={'museum_id': 'id'})
         .drop_duplicates()
     )
+    return df
 
-    # Load dataframe into table
-    df.to_sql('museum', con=conn, if_exists='append', index=False)
 
-    # Commit transanctions to DB
-    conn.commit()
-
-    if conn:
-        print("Closing database connection...")
-        conn.close()
+def museum_driver(engine):
+    """
+    Main driver for museum table.
+    """
+    staging_driver(engine, sourcename='museum', tablename='museum', transform=museum_transform, insert=True)
 
 
 if __name__ == '__main__':
-    engine = get_db_engine()
-    museum_driver(engine)
+    museum_driver(get_db_engine())

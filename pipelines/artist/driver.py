@@ -5,43 +5,28 @@
 # Scott Renegado
 
 import pandas as pd
-
 from pipelines.resources.connection import get_db_engine
-from pipelines.resources.connection import get_db_connection
-from pipelines.resources.sqlhandler import execute_script
+from pipelines.staging_driver import staging_driver
 
 
-def artist_driver(engine):
-
-    # Connect to database
-    print("Establishing a database connection...")
-    conn = get_db_connection(engine)
-
-    # Create the artist table
-    execute_script("pipelines/artist/drop.sql", con=conn)
-    execute_script("pipelines/artist/create.sql", con=conn)
-
-    # Read csv data into dataframe
-    df = pd.read_csv(f'data/artist.csv')
-
-    # Transformations
+def artist_transform(df: pd.DataFrame):
+    """
+    Transformations for artist table.
+    """
     df = (
         df.drop(columns=['first_name', 'middle_names', 'last_name'])
         .rename(columns={'artist_id': 'id', 'birth': 'birth_year', 'death': 'death_year'})
         .drop_duplicates()
     )
+    return df
 
-    # Load dataframe into table
-    df.to_sql('artist', con=conn, if_exists='append', index=False)
 
-    # Commit transanctions to DB
-    conn.commit()
-
-    if conn:
-        print("Closing database connection...")
-        conn.close()
+def artist_driver(engine):
+    """
+    Main driver for artist table.
+    """
+    staging_driver(engine, sourcename='artist', tablename='artist', transform=artist_transform, insert=False)
 
 
 if __name__ == '__main__':
-    engine = get_db_engine()
-    artist_driver(engine)
+    artist_driver(get_db_engine())
