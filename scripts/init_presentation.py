@@ -1,4 +1,4 @@
-# presentation.py
+# init_presentation.py
 #
 # Script to populate presentation area with tables.
 #
@@ -13,7 +13,7 @@ from pipelines.fact_artwork.driver import fact_artwork_driver
 from pipelines.fact_museum_hours.driver import fact_museum_hours_driver
 
 
-def run():
+def main():
     engine = get_db_engine()
 
     print("Preparing Presentation Area")
@@ -30,4 +30,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    main()

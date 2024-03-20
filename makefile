@@ -2,10 +2,10 @@ init:
 	pip install -r requirements.txt
 
 staging:
-	python init_staging.py
+	python -m scripts.init_staging
 
 presentation:
-	python presentation.py
+	python -m scripts.init_presentation
 
 test-staging:
 	python -m unittest pipelines.artist.test pipelines.canvas.test pipelines.museum.test pipelines.museum_hours.test pipelines.product.test pipelines.work.test pipelines.work_subject.test
