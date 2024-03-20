@@ -15,6 +15,7 @@ class TestArtist(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
+        print("Validating artist table...")
         cls.engine = get_db_engine()
         cls.con = get_db_connection(engine=cls.engine)
         cls.df = pd.read_sql('SELECT * FROM artist', con=cls.con)
@@ -46,6 +47,7 @@ class TestArtist(unittest.TestCase):
     
     @classmethod
     def tearDownClass(cls):
+        print('\n')
         if cls.con:
             cls.con.close()
 

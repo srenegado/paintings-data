@@ -15,6 +15,7 @@ class TestFactMuseumHours(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
+        print("Validating fact_museum_hours table...")
         cls.engine = get_db_engine()
         cls.con = get_db_connection(engine=cls.engine)
         cls.df = pd.read_sql('SELECT * FROM fact_museum_hours', con=cls.con)
@@ -56,6 +57,7 @@ class TestFactMuseumHours(unittest.TestCase):
         
     @classmethod
     def tearDownClass(cls):
+        print("\n")
         if cls.con:
             cls.con.close()
 

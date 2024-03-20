@@ -15,6 +15,7 @@ class TestProduct(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
+        print('Validating product table...')
         cls.engine = get_db_engine()
         cls.con = get_db_connection(engine=cls.engine)
         cls.df = pd.read_sql('SELECT * FROM product', con=cls.con)
@@ -64,6 +65,7 @@ class TestProduct(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        print('\n')
         if cls.con:
             cls.con.close()
 

@@ -15,6 +15,7 @@ class TestDimMuseum(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
+        print("Validating dim_museum table...")
         cls.engine = get_db_engine()
         cls.con = get_db_connection(engine=cls.engine)
         cls.df = pd.read_sql('SELECT * FROM dim_museum', con=cls.con)
@@ -52,6 +53,7 @@ class TestDimMuseum(unittest.TestCase):
         
     @classmethod
     def tearDownClass(cls):
+        print("\n")
         if cls.con:
             cls.con.close()
 
