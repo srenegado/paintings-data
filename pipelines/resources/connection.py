@@ -4,6 +4,7 @@
 #
 # Scott Renegado
 
+from sqlalchemy import Engine
 from sqlalchemy import create_engine
 import json
 import sys
@@ -36,7 +37,7 @@ def get_connection_string(config):
     return conn_string
 
 
-def get_db_connection(engine):
+def get_db_connection(engine: Engine):
     """
     Get a new database connection with provided engine.
     Raise exception if connections fails.

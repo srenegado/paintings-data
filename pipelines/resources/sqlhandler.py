@@ -4,6 +4,7 @@
 #
 # Scott Renegado
 
+from sqlalchemy import Connection
 from sqlalchemy import text
 import pandas as pd
 
@@ -17,7 +18,7 @@ def load_script(script_filename):
     return create_script
 
 
-def execute_script(script_filename, con):
+def execute_script(script_filename, con: Connection):
     """
     Read and execute SQL using provided DB connection.
     """
@@ -25,7 +26,7 @@ def execute_script(script_filename, con):
     con.execute(create_script)
 
 
-def read_local_sql(script_filename, con):
+def read_local_sql(script_filename, con: Connection):
     """
     Read a local SQL script into a dataframe.
     See pandas.read_sql.
