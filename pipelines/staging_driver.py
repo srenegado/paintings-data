@@ -4,10 +4,9 @@
 #
 # Scott Renegado
 
-from typing import Callable
 import pandas as pd
+from typing import Callable
 from sqlalchemy import Engine
-
 
 from pipelines.resources.connection import get_db_connection
 from pipelines.resources.sqlhandler import execute_script
@@ -28,7 +27,7 @@ def staging_driver(
     print("Establishing a database connection...")
     conn = get_db_connection(engine)
 
-    # Create the artist table
+    # Create the staging table
     execute_script("pipelines/" + tablename + "/drop.sql", con=conn)
     execute_script("pipelines/" + tablename + "/create.sql", con=conn)
     if insert: execute_script("pipelines/" + tablename + "/insert.sql", con=conn)
@@ -36,7 +35,7 @@ def staging_driver(
     # Read csv data into dataframe
     df = pd.read_csv(f'data/' + sourcename + '.csv')
 
-    # Transformations
+    # Perform transformations
     df = transform(df)
 
     # Load dataframe into table
