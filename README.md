@@ -12,5 +12,8 @@ Below is a diagram that overviews the entire process.
 
 ## Usage
 
+## Data
+The data was sourced from [Kaggle](https://www.kaggle.com/datasets/mexwell/famous-paintings).
+
 ## License
 This project is under the MIT license (see LICENSE.md)
