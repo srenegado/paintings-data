@@ -8,9 +8,18 @@ This project is an ETL pipeline that ingests data on museums, artists, and their
 
 Below is a diagram that overviews the entire process.
 
-## Installation
+<p align="center">
+<img src="doc/overview.jpg" width="950"/>
+</p>
 
+## Installation
+After cloning the repo, run the following in the command line to install the required dependencies:
+```
+make init
+```
+This project also requires [PostgreSQL](https://www.postgresql.org/download/). It is recommended to install a SQL client like [pgAdmin](https://www.pgadmin.org/download/).
 ## Usage
+
 
 ## Data
 The data was sourced from [Kaggle](https://www.kaggle.com/datasets/mexwell/famous-paintings).
