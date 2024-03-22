@@ -17,7 +17,7 @@ def get_connection_config():
     # Load config file
     with open("pipelines/config.json") as conn_config:
         conn_config = json.load(conn_config)
-    
+
     return conn_config
 
 
@@ -26,10 +26,10 @@ def get_connection_string(config):
     Get connection string from config.
     """
     # Read config file
-    user = config['user']
-    password = config['password']
-    host = config['host']
-    dbname = config['dbname']
+    user = config["user"]
+    password = config["password"]
+    host = config["host"]
+    dbname = config["dbname"]
 
     # Setup string
     conn_string = f"postgresql://{user}:{password}@{host}/{dbname}"

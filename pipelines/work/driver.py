@@ -15,17 +15,14 @@ def work_transform(df: pd.DataFrame):
     """
     Transformations for work table.
     """
-    df = (
-        df.drop_duplicates()
-        .rename(columns={'work_id': 'id'})
-    )
+    df = df.drop_duplicates().rename(columns={"work_id": "id"})
 
     # Change nulls in museum_id to default value
-    df['museum_id'] = (
-        df['museum_id']
-        .replace(np.NaN, 0) 
+    df["museum_id"] = (
+        df["museum_id"]
+        .replace(np.NaN, 0)
         .apply(lambda string: pd.to_numeric(string))
-        .astype('int64')
+        .astype("int64")
     )
     return df
 
@@ -34,8 +31,14 @@ def work_driver(engine):
     """
     Main driver for work table.
     """
-    staging_driver(engine, sourcename='work', tablename='work', transform=work_transform, insert=False)
+    staging_driver(
+        engine,
+        sourcename="work",
+        tablename="work",
+        transform=work_transform,
+        insert=False,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     work_driver(get_db_engine())

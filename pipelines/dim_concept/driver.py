@@ -10,8 +10,8 @@ from pipelines.resources.connection import get_db_engine
 
 def dim_concept_driver(engine):
     """Driver for dim_concept table."""
-    presentation_driver(engine, 'dim_concept')
+    presentation_driver(engine, "dim_concept")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dim_concept_driver(get_db_engine())

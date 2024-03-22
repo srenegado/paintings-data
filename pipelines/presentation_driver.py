@@ -24,10 +24,10 @@ def presentation_driver(engine: Engine, tablename: str):
     execute_script("pipelines/" + tablename + "/create.sql", con=conn)
 
     # Read table into dataframe
-    df = read_local_sql("pipelines/" + tablename +"/load.sql", con=conn)
+    df = read_local_sql("pipelines/" + tablename + "/load.sql", con=conn)
 
     # Load dataframe into table
-    df.to_sql(tablename, con=conn, if_exists='append', index=False)
+    df.to_sql(tablename, con=conn, if_exists="append", index=False)
 
     # Create indexes
     execute_script("pipelines/" + tablename + "/indexes.sql", con=conn)

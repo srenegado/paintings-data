@@ -13,11 +13,11 @@ from pipelines.resources.sqlhandler import execute_script
 
 
 def staging_driver(
-    engine: Engine, 
-    sourcename: str, 
-    tablename: str, 
-    transform: Callable[[pd.DataFrame], pd.DataFrame], 
-    insert: bool = False   
+    engine: Engine,
+    sourcename: str,
+    tablename: str,
+    transform: Callable[[pd.DataFrame], pd.DataFrame],
+    insert: bool = False,
 ):
     """
     Base driver for staging tables.
@@ -30,16 +30,17 @@ def staging_driver(
     # Create the staging table
     execute_script("pipelines/" + tablename + "/drop.sql", con=conn)
     execute_script("pipelines/" + tablename + "/create.sql", con=conn)
-    if insert: execute_script("pipelines/" + tablename + "/insert.sql", con=conn)
+    if insert:
+        execute_script("pipelines/" + tablename + "/insert.sql", con=conn)
 
     # Read csv data into dataframe
-    df = pd.read_csv(f'data/' + sourcename + '.csv')
+    df = pd.read_csv(f"data/" + sourcename + ".csv")
 
     # Perform transformations
     df = transform(df)
 
     # Load dataframe into table
-    df.to_sql(tablename, con=conn, if_exists='append', index=False)
+    df.to_sql(tablename, con=conn, if_exists="append", index=False)
 
     # Commit transanctions to DB
     conn.commit()

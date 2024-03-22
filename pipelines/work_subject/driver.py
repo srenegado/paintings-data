@@ -22,8 +22,14 @@ def work_subject_driver(engine):
     """
     Main driver for work_subject table.
     """
-    staging_driver(engine, sourcename='subject', tablename='work_subject', transform=work_subject_transform, insert=False)
+    staging_driver(
+        engine,
+        sourcename="subject",
+        tablename="work_subject",
+        transform=work_subject_transform,
+        insert=False,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     work_subject_driver(get_db_engine())
