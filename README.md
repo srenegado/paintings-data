@@ -12,6 +12,8 @@ Below is a diagram that overviews the entire process.
 <img src="doc/overview.jpg" width="950"/>
 </p>
 
+> **Note:** For more on architecture, check out the `doc` folder.
+
 ## Installation
 After cloning the repo, run the following in the command line to install the required Python packages:
 ```
@@ -50,6 +52,7 @@ make test-presentation
 
 ## Data
 The data was sourced from [Kaggle](https://www.kaggle.com/datasets/mexwell/famous-paintings).
+
 
 ## License
 This project is under the MIT license (see LICENSE.md)
