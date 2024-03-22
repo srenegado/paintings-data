@@ -42,7 +42,7 @@ make presentation
 ```
 You should see these tables now in the ``paintings`` database. Check it out easily through pgAdmin.
 
-To test the tables, run the following commands:
+To validate the tables, run the following commands:
 ```
 make test-staging
 make test-presentation
