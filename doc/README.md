@@ -1,12 +1,19 @@
-# paintings-data
+# Reference manual
 
-to-do: give some comments to ER diagrams
+This reference manual examines the data set and its patterns, the steps involved in our pipeline, and the overall structure of the data warehouse.
+
+## Data
 
 
-## Code base
+## Entity-relationship diagrams
+### Staging Area
 
-## Staging Area
+<p align="center">
+<img src="staging_area.jpg" width="650"/>
+</p>
 
-## Presentation Area
+### Presentation Area
 
-to-do: add EDA notebook for raw data
+<p align="center">
+<img src="presentation_area.jpg" width="650"/>
+</p>
