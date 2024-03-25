@@ -2,3 +2,6 @@ pandas==2.2.1
 SQLAlchemy==2.0.28
 psycopg2-binary==2.9.9
 black==24.3.0
+
+# Uncomment if you would like read Jupyter notebooks
+#jupyterlab==4.1.5
