@@ -55,4 +55,4 @@ The data was sourced from [Kaggle](https://www.kaggle.com/datasets/mexwell/famou
 
 
 ## License
-This project is under the MIT license (see LICENSE.md)
+This project is under the MIT license (see [LICENSE.md](LICENSE))
