@@ -30,7 +30,7 @@ There are **10223 null** `museum_id`s. This is an issue because it would create 
 ```
 All the null `museum_id`s are changed to having value `0`.
 #### museum_hours
-There's a record which has an **invalid value** in `close`, that value being `08 :00:PM` (the single space character). This is easily fixed by removing the space character.
+There's a record which has an **invalid value** in `close`, that value being `08 :00:PM`. This is easily fixed by removing the space character.
 
 ### Relationships 
 The cardinalities and participation can be seen in the staging ERD; most tables are in total participation with the other table in the relationship, while a few are not:
