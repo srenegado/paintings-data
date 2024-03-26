@@ -74,7 +74,7 @@ A product record having `canvas_id` `28.836` would be converted to `28836`, with
 ### Staging Area
 
 <p align="center">
-<img src="staging_area.jpg" width="650"/>
+<img src="staging_area.jpg" width="850"/>
 </p>
 
 | Target table | Source |
@@ -91,7 +91,7 @@ A product record having `canvas_id` `28.836` would be converted to `28836`, with
 ### Presentation Area
 
 <p align="center">
-<img src="presentation_area.jpg" width="650"/>
+<img src="presentation_area.jpg" width="1000"/>
 </p>
 
 | Target table | Source table |
