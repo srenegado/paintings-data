@@ -1,5 +1,14 @@
 # paintings-data
 
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg/270px-Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg"
+  width="250"/>
+</p>
+
+<p align="center">
+  Woman with a Parasol – Madame Monet and Her Son, <i>1875 by Claude Monet, <br>National Gallery of Art, Washington DC</i>
+</p>
+
 This project is an ETL pipeline that ingests data on museums, artists, and their paintings into a data warehouse in Postgres. The intent here is building the data models and the ETL process from scratch, understanding these concepts by limiting the use of more sophisticated tools. It has the following features:
 
 - Establishes an ETL process with Python using SQLAlchemy and Pandas
