@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Woman with a Parasol – Madame Monet and Her Son, <i>1875 by Claude Monet, <br>National Gallery of Art, Washington DC</i>
+  <a href="https://en.wikipedia.org/wiki/Woman_with_a_Parasol_%E2%80%93_Madame_Monet_and_Her_Son">Woman with a Parasol – Madame Monet and Her Son</a>, <i>1875 by Claude Monet, <br>National Gallery of Art, Washington DC</i>
 </p>
 
 This project is an ETL pipeline that ingests data on museums, artists, and their paintings into a data warehouse in Postgres. The intent here is building the data models and the ETL process from scratch, understanding these concepts by limiting the use of more sophisticated tools. It has the following features:
