@@ -1,7 +1,9 @@
 init: 
 	pip install -r requirements.txt
 
-all: staging test-staging presentation test-presentation
+all: staging presentation
+
+test: test-staging test-presentation
 
 staging:
 	python -m scripts.init_staging
