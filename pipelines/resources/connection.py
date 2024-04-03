@@ -29,10 +29,11 @@ def get_connection_string(config):
     user = config["user"]
     password = config["password"]
     host = config["host"]
+    port = config["port"]
     dbname = config["dbname"]
 
     # Setup string
-    conn_string = f"postgresql://{user}:{password}@{host}/{dbname}"
+    conn_string = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
 
     return conn_string
 
