@@ -24,44 +24,70 @@ Below is a diagram that overviews the entire process.
 > **Note:** For more on architecture, check out the `doc` folder.
 
 ## Installation
-After cloning the repo, run the following in the command line to install the required Python packages:
+This project requires [Python](https://www.python.org/): I used version `3.11`. Clone this repo and now you've got all the code!
+
+You can install the required Python dependencies via:
 ```
 make init
 ```
-This project also requires [PostgreSQL](https://www.postgresql.org/download/). Navigate the downloads based on your OS.
+As for the database, you can either install everything locally or install [Docker](https://www.docker.com/) to spin up containers.
 
-It's also recommended to install a SQL client like [pgAdmin 4](https://www.pgadmin.org/download/). We'll be mentioning pgAdmin throughout from here on.
+- Local: Visit the [PostgreSQL](https://www.postgresql.org/download/) page and navigate the downloads based on your OS. Likewise install [pgAdmin 4](https://www.pgadmin.org/download/).
+- Docker: Visit [their page](https://www.docker.com/get-started/).
+
+Most importantly, remember to download the [data](https://www.kaggle.com/datasets/mexwell/famous-paintings)! Extract the `csv`s to the `data` folder.
 
 ## Usage
-With PostgreSQL installed, know your user credentials. Usually the default user name and password is `postgres` (you can always [change the password](https://stackoverflow.com/questions/12720967/how-can-i-change-a-postgresql-user-password)). Then edit the `user` and `password` fields in the `pipelines/config.json` file accordingly.
+How the database is setup depends on if you installed PostgreSQL and pgAdmin locally or are using Docker, although the difference between setups is pretty small.
 
-To create a local database, first connect to the default `postgres` database with the `postgres` user. You can do this either through the `psql` console or pgAdmin. Then run the following query:
+### Setting up the DB locally
+We first need to know the credentials of the admin user. The default user is usually `postgres` and the password is normally configured when installing PostgreSQL, but you can always [change it](https://stackoverflow.com/questions/12720967/how-can-i-change-a-postgresql-user-password). 
+
+Open the `pipelines/config.json` file and then edit the `user` and `password` fields in accordingly. Also the `port` field should be `5432`.
+
+Open pgAdmin and make a new server: the host name should be `localhost`, the port is `5432`, and username and password is the admin login.
+
+To create a database, first connect to the default `postgres` database with the admin user. Then run the following query:
 ```
 CREATE DATABASE paintings;
 ```
+A `paintings` database should appear under the Databases drop down menu.
 
-
-Also, remember to download the [data](https://www.kaggle.com/datasets/mexwell/famous-paintings)! Extract the `csv`'s to the `data` folder.
-
-In order to deploy the tables, run the following commands to setup the staging and presentation area:
+### Setting up the DB via Docker
+Spin up the Docker containers via
 ```
-# Deploy tables to the staging area
-make staging
+docker compose up
+```
+Open up the `compose.yml` file. The `POSTGRES_USER` and `POSTGRES_PASSWORD` variables is our database's admin user login, so fill out the `user` and `password` fields in the `pipelines/config.json` file accordingly. 
 
-# Deploy tables to the presentation area
-make presentation
-```
-You should see these tables now in the ``paintings`` database. Check it out easily through pgAdmin.
+Also the `port` field should now be `5433` (not `5432`!).
 
-To validate the tables, run the following commands:
+Going to `localhost:5050` in your browser directs you to a login page for pgAdmin: use `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD` to login.
+
+Make a new server like how we did in the local setup, except now the host name should be `db` instead of `localhost`.
+
+A `paintings` database should already be listed under Databases.
+
+After you're done, you can shut down the containers via
 ```
-make test-staging
-make test-presentation
+docker compose down
 ```
+
+### Running the pipeline
+You can deploy the tables using
+```
+make all
+```
+You should see these tables now in the ``paintings`` database: check it out through pgAdmin.
+
+Then you can validate the tables with
+```
+make test
+```
+and see all the tests results in the console.
 
 ## Data
 The data was sourced from [Kaggle](https://www.kaggle.com/datasets/mexwell/famous-paintings).
-
 
 ## License
 This project is under the MIT license (see [LICENSE](LICENSE))
