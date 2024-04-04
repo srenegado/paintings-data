@@ -38,7 +38,7 @@ As for the database, you can either install everything locally or install [Docke
 Most importantly, remember to download the [data](https://www.kaggle.com/datasets/mexwell/famous-paintings)! Extract the `csv`s to the `data` folder.
 
 ## Usage
-How the database is setup depends on if you installed PostgreSQL and pgAdmin locally or are using Docker, although the difference between setups is pretty small.
+How the database is setup depends on if you installed PostgreSQL and pgAdmin locally or are using Docker, though the difference is pretty small.
 
 ### Setting up the DB locally
 We first need to know the credentials of the admin user. The default user is usually `postgres` and the password is normally configured when installing PostgreSQL, but you can always [change it](https://stackoverflow.com/questions/12720967/how-can-i-change-a-postgresql-user-password). 
