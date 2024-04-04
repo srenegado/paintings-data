@@ -68,7 +68,7 @@ Make a new server like how we did in the local setup, except now the host name s
 
 A `paintings` database should already be listed under Databases.
 
-The containers can bu shut down via
+The containers can be shut down via
 ```
 docker compose down
 ```
