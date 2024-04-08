@@ -24,30 +24,41 @@ Below is a diagram that overviews the entire process.
 > **Note:** For more on architecture, check out the `doc` folder.
 
 ## Installation
-This project requires [Python](https://www.python.org/): I used version `3.11`. Clone this repo and now you've got all the code!
+This project requires [Python](https://www.python.org/): I used version `3.11`.
 
-You can install the required Python dependencies via:
+Clone this repo. Then you can install the required Python dependencies via:
 ```
 make init
 ```
-As for the database, you can either install everything locally or install [Docker](https://www.docker.com/) to spin up containers.
+To install the database either:
+- Install [PostgreSQL](https://www.postgresql.org/download/) and [pgAdmin 4](https://www.pgadmin.org/download/) locally; or
+- Install [Docker](https://www.docker.com/get-started/).
 
-- Local: Visit the [PostgreSQL](https://www.postgresql.org/download/) page and navigate the downloads based on your OS. Likewise install [pgAdmin 4](https://www.pgadmin.org/download/).
-- Docker: Visit [their page](https://www.docker.com/get-started/).
-
-Most importantly, remember to download the [data](https://www.kaggle.com/datasets/mexwell/famous-paintings)! Extract the `csv`s to the `data` folder.
+Download the [data](https://www.kaggle.com/datasets/mexwell/famous-paintings) and extract the `csv`s to the `data` folder.
 
 ## Usage
-How the database is setup depends on if you installed PostgreSQL and pgAdmin locally or are using Docker, though the difference is pretty small.
+How the database is setup depends on if you installed PostgreSQL and pgAdmin locally or are using Docker.
 
 ### Setting up the DB locally
-We first need to know the credentials of the admin user. The default user is usually `postgres` and the password is normally configured when installing PostgreSQL, but you can always [change it](https://stackoverflow.com/questions/12720967/how-can-i-change-a-postgresql-user-password). 
+Usually the default user is `postgres` and the password is normally configured when installing PostgreSQL, but you can always [change it](https://stackoverflow.com/questions/12720967/how-can-i-change-a-postgresql-user-password). 
 
-Open the `pipelines/config.json` file and then edit the `user` and `password` fields in accordingly. Also the `port` field should be `5432`.
+Inside the `pipelines/config.json` file, set the following values:
+```
+"user": "your_default_postgres_username",
+"password": "your_default_postgres_password",
+"host": "localhost",
+"port": 5432
+```
 
-Open pgAdmin and make a new server: the host name should be `localhost`, the port is `5432`, and username and password is the admin login.
+Open pgAdmin and make a new server, filling in the following areas:
+```
+Host name/address: localhost
+Port: 5432
+Username: your_default_postgres_username
+Password: your_default_postgres_password
+```
 
-To create a database, first connect to the default `postgres` database with the admin user. Then run the following query:
+To create a database, first connect to the default `postgres` database with the default user. Then run the following query:
 ```
 CREATE DATABASE paintings;
 ```
@@ -58,17 +69,29 @@ Spin up the Docker containers via
 ```
 docker compose up
 ```
-Open up the `compose.yml` file. The `POSTGRES_USER` and `POSTGRES_PASSWORD` variables is our database's admin user login, so fill out the `user` and `password` fields in the `pipelines/config.json` file accordingly. 
+Open up the `compose.yml` file for reference.
 
-Also the `port` field should now be `5433` (not `5432`!).
+Inside the `pipelines/config.json` file, set the following values:
+```
+"user": POSTGRES_USER,         # from compose.yml
+"password": POSTGRES_PASSWORD, # from compose.yml
+"host": "localhost",
+"port": 5433
+```
 
-Going to `localhost:5050` in your browser directs you to a login page for pgAdmin: use `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD` to login.
+Go to `localhost:5050` in your browser directs and login using `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD`.
 
-Make a new server like how we did in the local setup, except now the host name should be `db` instead of `localhost`.
+Make a new server with the following values:
+```
+Host name/address: db
+Port: 5432
+Username: POSTGRES_USER
+Password: POSTGRES_PASSWORD
+```
 
 A `paintings` database should already be listed under Databases.
 
-The containers can be shut down via
+To shut down the containers, use:
 ```
 docker compose down
 ```
