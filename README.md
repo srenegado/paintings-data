@@ -21,7 +21,7 @@ Below is a diagram that overviews the entire process.
 <img src="doc/overview.jpg" width="950"/>
 </p>
 
-> **Note:** For more on architecture, check out the `doc` folder.
+> **Note:** For more on data infrastructure and data quality, check out the [docs](https://github.com/srenegado/paintings-data/tree/main/doc).
 
 ## Installation
 This project requires [Python](https://www.python.org/): I used version `3.11`.
